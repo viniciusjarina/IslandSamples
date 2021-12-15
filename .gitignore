@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+Win32/IslandSampleWinUI2/.vs/*
+Win32/IslandSampleWinUI2/IslandSampleWinUI2/*
+Win32/IslandSampleWinUI2/packages/*
+Win32/IslandSampleWinUI2/x64/*
