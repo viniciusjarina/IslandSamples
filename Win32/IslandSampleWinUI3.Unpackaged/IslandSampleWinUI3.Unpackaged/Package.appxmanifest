@@ -12,7 +12,7 @@
     Version="1.0.0.0" />
 
   <Properties>
-    <DisplayName>App6</DisplayName>
+    <DisplayName>IslandSampleWinUI3</DisplayName>
     <PublisherDisplayName>vinja</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>

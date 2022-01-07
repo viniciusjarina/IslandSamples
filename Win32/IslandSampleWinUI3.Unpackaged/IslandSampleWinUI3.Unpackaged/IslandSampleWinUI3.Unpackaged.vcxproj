@@ -9,7 +9,7 @@
     <MinimalCoreWin>true</MinimalCoreWin>
     <ProjectGuid>{346c912c-c6fc-4032-94f9-b0b5c87b212e}</ProjectGuid>
     <ProjectName>IslandSampleWinUI3.Unpackaged</ProjectName>
-    <RootNamespace>App6</RootNamespace>
+    <RootNamespace>IslandSampleWinUI3</RootNamespace>
     <!--
       $(TargetName) should be same as $(RootNamespace) so that the produced binaries (.exe/.pri/etc.)
       have a name that matches the .winmd

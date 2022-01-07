@@ -1,5 +1,5 @@
 ========================================================================
-    App6 Project Overview
+    IslandSampleWinUI3 Project Overview
 ========================================================================
 
 This project demonstrates how to get started writing WinUI3 apps directly
