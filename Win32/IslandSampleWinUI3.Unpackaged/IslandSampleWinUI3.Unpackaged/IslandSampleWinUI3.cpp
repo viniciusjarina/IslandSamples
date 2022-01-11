@@ -173,19 +173,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         LONG l = ::GetWindowLong(_hWndXamlIsland, GWL_STYLE);
         ::SetWindowLong(_hWndXamlIsland, GWL_STYLE, l | WS_TABSTOP);
 
-        // Create XAML controls
-        _xamlButton = Button();
-        _xamlButton.Content(winrt::box_value(L"Button"));
-
-        _xamlButton.Click([](auto const& /* sender */, RoutedEventArgs const& /* args */)
-            {
-                _xamlButton.Content(box_value(L"Clicked1"));
-                OutputDebugString(L"Xaml Button1 clicked ***\n");
-            });
+        auto comboBox = ComboBox();
+        comboBox.Items().Append(winrt::box_value(L"Item 1"));
+        comboBox.Items().Append(winrt::box_value(L"Item 2"));
 
         _stack = StackPanel();
         auto collection = _stack.Children();
-        collection.Append(_xamlButton);
+        collection.Append(comboBox);
+
+        _stack.RequestedTheme(ElementTheme::Dark);
 
         _desktopWindowXamlSource.Content(_stack);
         m_xamlSources.push_back(_desktopWindowXamlSource);
