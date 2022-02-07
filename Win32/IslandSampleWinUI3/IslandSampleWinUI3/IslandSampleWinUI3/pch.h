@@ -4,6 +4,8 @@
 #include <restrictederrorinfo.h>
 #include <hstring.h>
 
+#define _VSDESIGNER_DONT_LOAD_AS_DLL
+
 // Undefine GetCurrentTime macro to prevent
 // conflict with Storyboard::GetCurrentTime
 #undef GetCurrentTime

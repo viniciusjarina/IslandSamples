@@ -29,4 +29,7 @@
   <ItemGroup>
     <Image Include="small.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml" />
+  </ItemGroup>
 </Project>

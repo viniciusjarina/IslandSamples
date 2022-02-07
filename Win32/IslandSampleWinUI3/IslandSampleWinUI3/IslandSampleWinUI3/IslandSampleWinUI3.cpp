@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "resource.h"
 
+#include "App.xaml.h"
+
 #define MAX_LOADSTRING 100
 
 // Global Variables:
@@ -24,13 +26,13 @@ static std::vector<DesktopWindowXamlSource> m_xamlSources{ };
 
 // Xaml Island desktop XAML Source
 static DesktopWindowXamlSource _desktopWindowXamlSource{ nullptr };
-// XAML Manager
-static WindowsXamlManager _winxamlmanager{ nullptr };
+
 
 // WinUI Button
 Button _xamlButton{ nullptr };
 StackPanel _stack{ nullptr };
 
+static Application xapp{ nullptr };
 
 // Forward declarations of functions included in this code module:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -122,7 +124,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
     init_apartment(winrt::apartment_type::single_threaded);
 
-    _winxamlmanager = WindowsXamlManager::InitializeForCurrentThread();
+    xapp = winrt::make<winrt::IslandSampleWinUI3::implementation::App>();
+
     _desktopWindowXamlSource = DesktopWindowXamlSource{};
 
     HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
@@ -173,19 +176,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         LONG l = ::GetWindowLong(_hWndXamlIsland, GWL_STYLE);
         ::SetWindowLong(_hWndXamlIsland, GWL_STYLE, l | WS_TABSTOP);
 
-        // Create XAML controls
-        _xamlButton = Button();
-        _xamlButton.Content(winrt::box_value(L"Button"));
+        auto textBox = TextBox();
+        textBox.Text(L"Text Edit");
 
-        _xamlButton.Click([](auto const& /* sender */, RoutedEventArgs const& /* args */)
-            {
-                _xamlButton.Content(box_value(L"Clicked1"));
-                OutputDebugString(L"Xaml Button1 clicked ***\n");
-            });
+        auto comboBox = ComboBox();
+        comboBox.Items().Append(winrt::box_value(L"Item 1"));
+        comboBox.Items().Append(winrt::box_value(L"Item 2"));
 
         _stack = StackPanel();
         auto collection = _stack.Children();
-        collection.Append(_xamlButton);
+        //collection.Append(comboBox);
+        collection.Append(textBox);
 
         _desktopWindowXamlSource.Content(_stack);
         m_xamlSources.push_back(_desktopWindowXamlSource);

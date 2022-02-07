@@ -173,51 +173,32 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         LONG l = ::GetWindowLong(_hWndXamlIsland, GWL_STYLE);
         ::SetWindowLong(_hWndXamlIsland, GWL_STYLE, l | WS_TABSTOP);
 
-        // Create XAML controls
-        _xamlButton = Button();
-        _xamlButton.Content(winrt::box_value(L"Button"));
+        auto button = Button();
+        button.Content(winrt::box_value(L"Button"));
 
-        _xamlButton.Click([](auto const& /* sender */, RoutedEventArgs const& /* args */)
-            {
-                _xamlButton.Content(box_value(L"Clicked1"));
-                OutputDebugString(L"Xaml Button1 clicked ***\n");
-            });
+        auto comboBox = ComboBox();
+        comboBox.Items().Append(winrt::box_value(L"Item 1"));
+        comboBox.Items().Append(winrt::box_value(L"Item 2"));
+
+        auto picker = CalendarDatePicker();
+        auto checkbox = CheckBox();
 
         _stack = StackPanel();
         auto collection = _stack.Children();
-        collection.Append(_xamlButton);
+        collection.Append(comboBox);
+        collection.Append(button);
+        collection.Append(picker);
+        collection.Append(checkbox);
+
+        _stack.RequestedTheme(ElementTheme::Dark);
 
         _desktopWindowXamlSource.Content(_stack);
-        m_xamlSources.push_back(_desktopWindowXamlSource);
-    }
-    break;
-    case WM_COMMAND:
-    {
-        int wmId = LOWORD(wParam);
-        // Parse the menu selections:
-        switch (wmId)
-        {
-        case IDM_ABOUT:
-            DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
-            break;
-        case IDM_EXIT:
-            DestroyWindow(hWnd);
-            break;
-        default:
-            return DefWindowProc(hWnd, message, wParam, lParam);
-        }
-    }
-    break;
-    case WM_PAINT:
-    {
         PAINTSTRUCT ps;
         HDC hdc = BeginPaint(hWnd, &ps);
         // TODO: Add any drawing code that uses hdc here...
-        RECT rc;
         GetClientRect(hWnd, &rc);
         SetDCBrushColor(hdc, RGB(212, 212, 220));
         FillRect(hdc, &rc, (HBRUSH)GetStockObject(DC_BRUSH));
-        EndPaint(hWnd, &ps);
     }
     break;
     case WM_DESTROY:
